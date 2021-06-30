@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,7 @@ Route::get('/', function () {
 });
 Route::get('users', 
     [UserController::class, 'index']);
+Route::get('thong-tin-ca-nhan', 
+    [HomeController::class, 'thongtin']);
+Route::post('show-thong-tin', 
+    [HomeController::class, 'showData']);
