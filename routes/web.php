@@ -15,12 +15,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/trang-chu', function () {
     return view('welcome');
+})->name('homepage');
+
+Route::get('detail/{id}/{name}', function(){
+
+})->name('detail');
+
+
+Route::get('demo', function(){
+    $id = 100;
+    $name = "poly";
+    return route('detail', ['id' => $id, 'name' => $name]);
 });
-Route::get('users', 
-    [UserController::class, 'index']);
-Route::get('thong-tin-ca-nhan', 
-    [HomeController::class, 'thongtin']);
-Route::post('show-thong-tin', 
-    [HomeController::class, 'showData']);
+
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', function(){}); // localhost:8000/admin/dashboard
+    
+    Route::prefix('product')->group(function(){
+        Route::get('/', function(){}); // localhost:8000/admin/product
+        Route::get('/add', function(){}); // localhost:8000/admin/product/add
+    });
+    Route::get('categories', function(){});
+});
