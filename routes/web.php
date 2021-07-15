@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,27 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/trang-chu', function () {
-    return view('welcome');
-})->name('homepage');
-
-Route::get('detail/{id}/{name}', function(){
-
-})->name('detail');
+Route::get('/', [HomeController::class, 'index'])->name('homepage');
+Route::get('danh-muc/xoa/{id}', [HomeController::class, 'removeCate'])
+            ->name('cate.remove');
 
 
-Route::get('demo', function(){
-    $id = 100;
-    $name = "poly";
-    return route('detail', ['id' => $id, 'name' => $name]);
-});
-
-Route::prefix('admin')->group(function () {
-    Route::get('dashboard', function(){}); // localhost:8000/admin/dashboard
-    
-    Route::prefix('product')->group(function(){
-        Route::get('/', function(){}); // localhost:8000/admin/product
-        Route::get('/add', function(){}); // localhost:8000/admin/product/add
-    });
-    Route::get('categories', function(){});
-});

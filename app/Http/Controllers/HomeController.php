@@ -3,18 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Category;
 class HomeController extends Controller
 {
-    public function thongtin(){
-        return view('user.info');
+    public function index(){
+        // lấy danh mục trong db
+        $cates = Category::all();
+        // sinh ra view & truyền dữ liệu ra ngoài view
+        return view('home.index', ['cates' => $cates]);
     }
-    public function showData(Request $request){
-        $name = $request->name;
-        $birthday = $request->birthday;
-        $gender = $request->gender;
 
-        // [$tokens, $name, $birthday, $gender] = $request->all();
-        return view('user.user-info', compact('name', 'birthday', 'gender'));
+    public function removeCate($cateId){
+        $cate = Category::find($cateId);
+        if(!$cate){
+            return "Đường dẫn không tồn tại";
+        }
+
+        $cate->delete();
+        return redirect(route('homepage'));
     }
 }
