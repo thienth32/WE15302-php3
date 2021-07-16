@@ -3,14 +3,14 @@
     <form action="" method="get">
         <div>
             <label for="">Tên sản phẩm</label>
-            <input type="text" name="keyword">
+            <input type="text" name="keyword" @isset($searchData['keyword']) value="{{$searchData['keyword']}}" @endisset>
         </div>
         <div>
             <label for="">Danh mục sản phẩm</label>
             <select name="cate_id" >
                 <option value="">Tất cả</option>
                 @foreach($cates as $c)
-                <option value="{{$c->id}}">{{$c->name}}</option>
+                <option @if(isset($searchData['cate_id']) && $c->id == $searchData['cate_id']) selected @endif value="{{$c->id}}">{{$c->name}}</option>
                 @endforeach
             </select>
         </div>
@@ -18,10 +18,10 @@
             <label for="">Sắp xếp theo</label>
             <select name="order_by" >
                 <option value="0">Mặc định</option>
-                <option value="1">Tên alphabet</option>
-                <option value="2">Tên giảm dần alphabet</option>
-                <option value="3">Giá tăng dần</option>
-                <option value="4">Giá giảm dần</option>
+                <option @if(isset($searchData['order_by']) &&  $searchData['order_by'] == 1) selected @endif  value="1">Tên alphabet</option>
+                <option @if(isset($searchData['order_by']) &&  $searchData['order_by'] == 2) selected @endif value="2">Tên giảm dần alphabet</option>
+                <option @if(isset($searchData['order_by']) &&  $searchData['order_by'] == 3) selected @endif value="3">Giá tăng dần</option>
+                <option @if(isset($searchData['order_by']) &&  $searchData['order_by'] == 4) selected @endif value="4">Giá giảm dần</option>
             </select>
         </div>
         <div>
@@ -41,7 +41,7 @@
     <tbody>
         @foreach($data_product as $p)
         <tr>
-            <td>{{$loop->iteration}}</td>
+            <td>{{(($data_product->currentPage()-1)*20) + $loop->iteration}}</td>
             <td>{{$p->name}}</td>
             <td><img src="{{asset( 'storage/' . $p->image)}}" width="70" /></td>
             <td>{{$p->cate_id}}</td>
@@ -49,5 +49,8 @@
             <td></td>
         </tr>
         @endforeach
+        
     </tbody>
+    
 </table>
+{{$data_product->links()}}

@@ -10,10 +10,12 @@ use App\Models\Category;
 class ProductController extends Controller
 {
     public function index(Request $request){
+        $pagesize = 20;
+        $searchData = $request->except('page');
         
         if(count($request->all()) == 0){
             // Lấy ra danh sách sản phẩm & phân trang cho nó
-            $products = Product::all();
+            $products = Product::paginate($pagesize);
         }else{
             $productQuery = Product::where('name', 'like', "%" .$request->keyword . "%");
             if($request->has('cate_id') && $request->cate_id != ""){
@@ -31,12 +33,16 @@ class ProductController extends Controller
                     $productQuery = $productQuery->orderByDesc('price');
                 }
             }
-            $products = $productQuery->get();
+            $products = $productQuery->paginate($pagesize)->appends($searchData);
         }
         
         
         $cates = Category::all();
         // trả về cho người dùng 1 giao diện + dữ liệu products vừa lấy đc 
-        return view('admin.products.index', ['data_product' => $products, 'cates' => $cates]);
+        return view('admin.products.index', [
+            'data_product' => $products, 
+            'cates' => $cates,
+            'searchData' => $searchData
+        ]);
     }
 }
