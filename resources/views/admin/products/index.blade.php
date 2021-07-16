@@ -7,7 +7,12 @@
         </div>
         <div>
             <label for="">Danh mục sản phẩm</label>
-            <select name="cate_id" ></select>
+            <select name="cate_id" >
+                <option value="">Tất cả</option>
+                @foreach($cates as $c)
+                <option value="{{$c->id}}">{{$c->name}}</option>
+                @endforeach
+            </select>
         </div>
         <div>
             <label for="">Sắp xếp theo</label>
