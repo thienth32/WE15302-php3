@@ -36,6 +36,7 @@ class ProductController extends Controller
             $products = $productQuery->paginate($pagesize)->appends($searchData);
         }
         
+        $products->load('category');
         
         $cates = Category::all();
         // trả về cho người dùng 1 giao diện + dữ liệu products vừa lấy đc 

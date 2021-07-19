@@ -44,7 +44,9 @@
             <td>{{(($data_product->currentPage()-1)*20) + $loop->iteration}}</td>
             <td>{{$p->name}}</td>
             <td><img src="{{asset( 'storage/' . $p->image)}}" width="70" /></td>
-            <td>{{$p->cate_id}}</td>
+            <td>
+                <a href="{{route('category.detail', ['id' => $p->cate_id])}}">{{$p->category->name}}</a>
+            </td>
             <td>{{$p->price}}</td>
             <td></td>
         </tr>
