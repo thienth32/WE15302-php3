@@ -36,6 +36,7 @@
         <th>Ảnh</th>
         <th>Danh mục</th>
         <th>Giá</th>
+        <th>Tags</th>
         <th></th>
     </thead>
     <tbody>
@@ -48,6 +49,13 @@
                 <a href="{{route('category.detail', ['id' => $p->cate_id])}}">{{$p->category->name}}</a>
             </td>
             <td>{{$p->price}}</td>
+            <td>
+                {{-- @isset($p->tags)
+                    @foreach($p->tags as $t)
+                    <span style="border: solid 1px #ccc; margin-right: 5px;">{{$t->name}}</span>
+                    @endforeach
+                @endisset --}}
+            </td>
             <td></td>
         </tr>
         @endforeach

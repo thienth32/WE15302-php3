@@ -9,8 +9,12 @@ class Product extends Model
 {
     use HasFactory;
     protected $table = 'products';
-    
+
     public function category(){
         return $this->belongsTo(Category::class, 'cate_id');
+    }
+
+    public function tags(){
+        return $this->hasManyThrough(Tag::class, ProductTag::class, 'product_id', 'tag_id', 'id', 'id');
     }
 }
