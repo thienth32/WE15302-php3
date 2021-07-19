@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 
 Route::prefix('san-pham')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index');
+    Route::get('demo-save', [ProductController::class, 'saveDemo']);
 });
 
 Route::prefix('danh-muc')->group(function () {

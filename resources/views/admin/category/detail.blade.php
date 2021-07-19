@@ -6,3 +6,4 @@
     <li>{{$p->name}}</li>
     @endforeach
 </ul>
+{{$schoolname}}

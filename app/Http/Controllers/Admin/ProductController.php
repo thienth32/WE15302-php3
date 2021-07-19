@@ -46,4 +46,24 @@ class ProductController extends Controller
             'searchData' => $searchData
         ]);
     }
+
+
+    public function saveDemo(){
+        $data = [
+            'name' => 'demo sản phẩm 100',
+            'cate_id' => Category::all()->random()->id,
+            'image' => "uploads/products/0aae71a853b1485ace381fc58b098cac.png",
+            'price' => rand(1, 3000),
+            "status" => rand(0, 1),
+            'quantity' => rand(1, 100),
+            'detail' => ''
+        ];
+
+        $id = 100;
+        $model = Product::find($id);
+        $model->fill($data);
+        $model->image = $data['image'];
+
+        $model->save();
+    }
 }

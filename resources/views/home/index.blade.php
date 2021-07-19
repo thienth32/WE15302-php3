@@ -1,3 +1,4 @@
+@dump($system_users)
 <table>
     <thead>
         <th>ID</th>

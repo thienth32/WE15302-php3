@@ -1,3 +1,5 @@
+{{$schoolname}}
+@dump($system_users)
 <fieldset>
     <legend>Tìm kiếm</legend>
     <form action="" method="get">
