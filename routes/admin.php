@@ -12,4 +12,6 @@ Route::prefix('danh-muc')->group(function () {
     Route::get('detail/{id}', [CategoryController::class, 'detail'])->name('category.detail');
 });
 
+Route::view('demo', 'admin.layouts.main');
+
 ?>

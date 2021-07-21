@@ -33,5 +33,15 @@ class AppServiceProvider extends ServiceProvider
             $users = User::all();
             $view->with('system_users', $users);
         });
+
+        view()->composer('admin.layouts.aside', function ($view) {
+            
+            $menu = [
+                1 => 'dashboard',
+                2 => 'sản phẩm',
+                3 => 'danh mục'
+            ];
+            $view->with('menu', $menu);
+        });
     }
 }
