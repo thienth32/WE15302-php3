@@ -46,7 +46,9 @@
             <th>Danh mục</th>
             <th>Giá</th>
             <th>Tags</th>
-            <th></th>
+            <th>
+                <a href="{{route('product.add')}}" class="btn btn-primary">Tạo mới</a>
+            </th>
         </thead>
         <tbody>
             @foreach($data_product as $p)
@@ -65,13 +67,17 @@
                         @endforeach
                     @endisset --}}
                 </td>
-                <td></td>
+                <td>
+                    <a href="{{route('product.remove', ['id' => $p->id])}}" class="btn btn-danger">Xóa</a>
+                </td>
             </tr>
             @endforeach
             
         </tbody>
         
     </table>
-    {{$data_product->links()}}
+    <div class="d-flex justify-content-end">
+        {{$data_product->links()}}
+    </div>
 </div>
 @endsection

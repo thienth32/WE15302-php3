@@ -47,6 +47,16 @@ class ProductController extends Controller
         ]);
     }
 
+    public function remove($id){
+        Product::destroy($id);
+        return redirect()->back();;
+    }
+
+    public function addForm(){
+        $cates = Category::all();
+        return view('admin.products.add-forn', compact('cates'));
+    }
+
 
     public function saveDemo(){
         $data = [
