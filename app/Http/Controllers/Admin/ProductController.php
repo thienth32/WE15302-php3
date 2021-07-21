@@ -58,22 +58,17 @@ class ProductController extends Controller
     }
 
 
-    public function saveDemo(){
-        $data = [
-            'name' => 'demo sản phẩm 100',
-            'cate_id' => Category::all()->random()->id,
-            'image' => "uploads/products/0aae71a853b1485ace381fc58b098cac.png",
-            'price' => rand(1, 3000),
-            "status" => rand(0, 1),
-            'quantity' => rand(1, 100),
-            'detail' => ''
-        ];
-
-        $id = 100;
-        $model = Product::find($id);
-        $model->fill($data);
-        $model->image = $data['image'];
+    public function saveAdd(Request $request){
+        $model = new Product();
+        $model->fill($request->all());
+        // upload ảnh
+        if($request->hasFile('uploadfile')){
+            $path = $request->file('uploadfile')->storeAs('public/uploads/products', uniqid() . '-' . $request->uploadfile->getClientOriginalName());
+            $model->image = str_replace('public/', '', $path);
+        }
 
         $model->save();
+
+        return redirect(route('product.index'));
     }
 }

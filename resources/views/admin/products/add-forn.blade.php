@@ -1,6 +1,7 @@
 @extends('admin.layouts.main')
 @section('content')
-<form action="" method="post" enctype="multipart/form">
+<form action="" method="post" enctype="multipart/form-data">
+    @csrf
     <div class="row">
         <div class="col-6">
             <div class="form-group">
