@@ -59,16 +59,38 @@ class ProductController extends Controller
 
 
     public function saveAdd(Request $request){
-        $model = new Product();
+        $model = new Product(); 
         $model->fill($request->all());
         // upload ảnh
         if($request->hasFile('uploadfile')){
-            $path = $request->file('uploadfile')->storeAs('public/uploads/products', uniqid() . '-' . $request->uploadfile->getClientOriginalName());
-            $model->image = str_replace('public/', '', $path);
+            $model->image = $request->file('uploadfile')->storeAs('uploads/products', uniqid() . '-' . $request->uploadfile->getClientOriginalName());
         }
 
         $model->save();
 
+        return redirect(route('product.index'));
+    }
+
+    public function editForm($id){
+        $model = Product::find($id);
+        if(!$model){
+            return redirect()->back();
+        }
+        $cates = Category::all();
+        return view('admin.products.edit-form', compact('model', 'cates'));
+    }
+
+    public function saveEdit($id, Request $request){
+        $model = Product::find($id); 
+        if(!$model){
+            return redirect()->back();
+        }
+        $model->fill($request->all());
+        // upload ảnh
+        if($request->hasFile('uploadfile')){
+            $model->image = $request->file('uploadfile')->storeAs('uploads/products', uniqid() . '-' . $request->uploadfile->getClientOriginalName());
+        }
+        $model->save();
         return redirect(route('product.index'));
     }
 }

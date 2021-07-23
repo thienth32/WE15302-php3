@@ -68,6 +68,7 @@
                     @endisset --}}
                 </td>
                 <td>
+                    <a href="{{route('product.edit', ['id' => $p->id])}}" class="btn btn-info">Sửa</a>
                     <a href="{{route('product.remove', ['id' => $p->id])}}" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
