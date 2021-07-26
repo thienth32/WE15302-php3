@@ -1,7 +1,10 @@
 @extends('admin.layouts.main')
 
 @section('content')
-
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
+@dump(Auth::user())
 <form action="" method="get">
     <div class="row">
         <div class="col-6">

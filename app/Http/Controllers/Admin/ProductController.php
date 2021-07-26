@@ -48,7 +48,8 @@ class ProductController extends Controller
     }
 
     public function remove($id){
-        Product::destroy($id);
+        $model = Product::find($id);
+        $model->delete();
         return redirect()->back();;
     }
 
