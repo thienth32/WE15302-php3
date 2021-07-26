@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductFormRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
@@ -59,7 +60,7 @@ class ProductController extends Controller
     }
 
 
-    public function saveAdd(Request $request){
+    public function saveAdd(ProductFormRequest $request){
         $model = new Product(); 
         $model->fill($request->all());
         // upload ảnh
