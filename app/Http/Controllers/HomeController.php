@@ -7,10 +7,8 @@ use App\Models\Category;
 class HomeController extends Controller
 {
     public function index(){
-        // lấy danh mục trong db
-        $cates = Category::all();
-        // sinh ra view & truyền dữ liệu ra ngoài view
-        return view('home.index', ['cates' => $cates]);
+        dd(1);
+        return view('home.index');
     }
 
     public function removeCate($cateId){

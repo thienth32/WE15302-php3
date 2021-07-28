@@ -64,11 +64,11 @@
                 </td>
                 <td>{{$p->price}}</td>
                 <td>
-                    {{-- @isset($p->tags)
+                    @isset($p->tags)
                         @foreach($p->tags as $t)
                         <span style="border: solid 1px #ccc; margin-right: 5px;">{{$t->name}}</span>
                         @endforeach
-                    @endisset --}}
+                    @endisset
                 </td>
                 <td>
                     <a href="{{route('product.edit', ['id' => $p->id])}}" class="btn btn-info">Sửa</a>
