@@ -24,25 +24,20 @@ class ProductFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $ruleArr =  [
             'name' => [
                 'required',
                 Rule::unique('products')->ignore($this->id)
             ],
             'price' => 'required|numeric',
-            'quantity' => 'required|numeric',
-            'uploadfile' => [
-                function ($attribute, $value, $fail) {
-                    // dd($value);
-                    if(!$value){
-                        $fail('Hãy chọn ảnh cho sản phẩm');
-                    }
-                    // if ($value === 'foo') {
-                    //     $fail('The '.$attribute.' is invalid.');
-                    // }
-                }
-            ]
+            'quantity' => 'required|numeric'
         ];
+        if($this->id == null){
+            $ruleArr['uploadfile'] = 'required|mimes:jpg,bmp,png,jpeg';
+        }else{
+            $ruleArr['uploadfile'] = 'mimes:jpg,bmp,png,jpeg';
+        }
+        return $ruleArr;
     }
 
     public function messages(){
@@ -55,6 +50,8 @@ class ProductFormRequest extends FormRequest
             'quantity.required' => 'Hãy nhập số lượng sản phẩm',
             'quantity.numeric' => 'Số lượng sản phẩm không đúng định dạng',
             'quantity.size' => 'Số lượng sản phẩm thấp nhất phải bằng 1',
+            'uploadfile.required' => 'Hãy chọn ảnh sản phẩm',
+            'uploadfile.mimes' => 'File ảnh sản phẩm không đúng định dạng (jpg, bmp, png, jpeg)',
         ];
     }
 }

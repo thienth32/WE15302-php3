@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 
 Route::prefix('san-pham')->group(function () {
-    Route::get('/', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/', [ProductController::class, 'index'])->middleware('checkage')->name('product.index');
     Route::get('xoa/{id}', [ProductController::class, 'remove'])->name('product.remove');
     Route::get('tao-moi', [ProductController::class, 'addForm'])->name('product.add');
     Route::post('tao-moi', [ProductController::class, 'saveAdd']);

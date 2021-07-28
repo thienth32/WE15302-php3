@@ -62,6 +62,7 @@ class ProductController extends Controller
 
     public function saveAdd(ProductFormRequest $request){
         $model = new Product(); 
+
         $model->fill($request->all());
         // upload ảnh
         if($request->hasFile('uploadfile')){
@@ -83,6 +84,7 @@ class ProductController extends Controller
     }
 
     public function saveEdit($id, ProductFormRequest $request){
+        
         $model = Product::find($id); 
         if(!$model){
             return redirect()->back();
