@@ -82,7 +82,7 @@ class ProductController extends Controller
         return view('admin.products.edit-form', compact('model', 'cates'));
     }
 
-    public function saveEdit($id, Request $request){
+    public function saveEdit($id, ProductFormRequest $request){
         $model = Product::find($id); 
         if(!$model){
             return redirect()->back();

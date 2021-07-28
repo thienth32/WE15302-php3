@@ -41,6 +41,9 @@
             <div class="form-group">
                 <label for="">Ảnh sản phẩm</label>
                 <input type="file" name="uploadfile" class="form-control">
+                @error('uploadfile')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
             </div>
         </div>
         <div class="col-12">

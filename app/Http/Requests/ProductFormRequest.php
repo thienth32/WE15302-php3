@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductFormRequest extends FormRequest
@@ -24,9 +25,23 @@ class ProductFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:products',
+            'name' => [
+                'required',
+                Rule::unique('products')->ignore($this->id)
+            ],
             'price' => 'required|numeric',
-            'quantity' => 'required|numeric'
+            'quantity' => 'required|numeric',
+            'uploadfile' => [
+                function ($attribute, $value, $fail) {
+                    // dd($value);
+                    if(!$value){
+                        $fail('Hãy chọn ảnh cho sản phẩm');
+                    }
+                    // if ($value === 'foo') {
+                    //     $fail('The '.$attribute.' is invalid.');
+                    // }
+                }
+            ]
         ];
     }
 

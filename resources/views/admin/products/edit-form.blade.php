@@ -7,6 +7,9 @@
             <div class="form-group">
                 <label for="">Tên sản phẩm</label>
                 <input type="text" name="name" class="form-control" value="{{$model->name}}">
+                @error('name')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="">Danh mục</label>
