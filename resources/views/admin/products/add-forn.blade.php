@@ -46,6 +46,21 @@
                 @enderror
             </div>
         </div>
+        <div class="col-md-12">
+            <table class="table table-stripped">
+                <thead>
+                    <th>File</th>
+                    <th>Thumbnail</th>
+                    <th>
+                        <button class="btn btn-success add-img" type="button">Thêm ảnh</button>
+                    </th>
+                </thead>
+                <tbody id="gallery">
+                    
+                </tbody>
+            </table>    
+            
+        </div>
         <div class="col-12">
             <div class="form-group">
                 <label for="">Chi tiết sản phẩm:</label>
@@ -60,4 +75,42 @@
     
 </form>
 <br>
+@endsection
+@section('pagejs')
+    <script>
+        $(document).ready(function(){
+            $('.add-img').click(function(){
+                var rowId = Date.now();
+                $('#gallery').append(`
+                    <tr id="${rowId}">
+                        <td>
+                            <div class="form-group">
+                                <input row_id="${rowId}" type="file" name="galleries[]" class="form-control" onchange="loadFile(event, ${rowId})">
+                            </div>
+                        </td>
+                        <td>
+                            <img row_id="${rowId}" src="" width="80">
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" onclick="removeImg(this)">Xóa</button>
+                        </td>
+                    </tr>
+                `);
+            })
+        })
+
+        function loadFile(event, el_rowId) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var output = document.querySelector(`img[row_id="${el_rowId}"]`);
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+
+        function removeImg(el){
+            $(el).parent().parent().remove();
+        }
+
+    </script>
 @endsection

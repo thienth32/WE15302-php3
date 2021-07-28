@@ -70,5 +70,6 @@
 <!-- ./wrapper -->
 
 @include('admin.layouts.script')
+@yield('pagejs')
 </body>
 </html>

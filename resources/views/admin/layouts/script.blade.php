@@ -24,6 +24,7 @@
 <script src="{{ asset('admin-theme/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 <!-- Summernote -->
 <script src="{{ asset('admin-theme/plugins/summernote/summernote-bs4.min.js')}}"></script>
+<script src="{{ asset('admin-theme/plugins/dropzone/min/dropzone.min.js')}}"></script>
 <!-- overlayScrollbars -->
 <script src="{{ asset('admin-theme/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->

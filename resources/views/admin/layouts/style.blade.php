@@ -18,4 +18,5 @@
   <link rel="stylesheet" href="{{ asset('admin-theme/plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('admin-theme/plugins/summernote/summernote-bs4.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('admin-theme/plugins/dropzone/min/dropzone.min.css')}}">
   <link rel="stylesheet" href="{{ asset('admin-theme/custom/style.css')}}">

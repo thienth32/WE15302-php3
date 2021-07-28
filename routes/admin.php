@@ -2,9 +2,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 
+Route::post('upload-file/{dirname}', [UploadController::class, 'saveUpload'])->name('upload.savefile');
 Route::prefix('san-pham')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index');
     Route::get('xoa/{id}', [ProductController::class, 'remove'])->name('product.remove');
