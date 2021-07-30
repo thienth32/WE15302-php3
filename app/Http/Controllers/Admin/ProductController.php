@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductFormRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -78,7 +79,7 @@ class ProductController extends Controller
                 $galleryObj->product_id = $model->id;
                 $galleryObj->order_no = $i+1;
                 $galleryObj->url = $item->storeAs('uploads/products/galleries/' . $model->id , 
-                                        uniqid() . '-' . $request->uploadfile->getClientOriginalName());
+                                        uniqid() . '-' . $item->getClientOriginalName());
                 $galleryObj->save();
             }
         }
@@ -110,6 +111,32 @@ class ProductController extends Controller
             $model->image = $request->file('uploadfile')->storeAs('uploads/products', uniqid() . '-' . $request->uploadfile->getClientOriginalName());
         }
         $model->save();
+
+        // gallery
+        // xóa gallery đc mark là bị xóa đi
+        if($request->has('removeGalleryIds')){
+            $strIds = rtrim($request->removeGalleryIds, '|');
+            $lstIds = explode('|', $strIds);
+            // xóa các ảnh vật lý
+            $removeList = ProductGallery::whereIn('id', $lstIds)->get();
+            foreach ($removeList as $gl) {
+                Storage::delete($gl->url);
+            }
+            
+            ProductGallery::destroy($lstIds);
+        }
+
+        // lưu mới danh sách gallery
+        if($request->has('galleries')){
+            foreach($request->galleries as $i => $item){
+                $galleryObj = new ProductGallery();
+                $galleryObj->product_id = $model->id;
+                $galleryObj->order_no = $i+1;
+                $galleryObj->url = $item->storeAs('uploads/products/galleries/' . $model->id , 
+                                        uniqid() . '-' . $item->getClientOriginalName());
+                $galleryObj->save();
+            }
+        }
         return redirect(route('product.index'));
     }
 }
