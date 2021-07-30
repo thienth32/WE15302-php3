@@ -101,11 +101,16 @@
 
         function loadFile(event, el_rowId) {
             var reader = new FileReader();
+            var output = document.querySelector(`img[row_id="${el_rowId}"]`);
             reader.onload = function(){
-                var output = document.querySelector(`img[row_id="${el_rowId}"]`);
                 output.src = reader.result;
             };
-            reader.readAsDataURL(event.target.files[0]);
+            if(event.target.files[0] == undefined){
+                output.src = "";
+                return false;
+            }else {
+                reader.readAsDataURL(event.target.files[0]);
+            }
         };
 
         function removeImg(el){

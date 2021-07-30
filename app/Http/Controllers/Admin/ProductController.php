@@ -7,6 +7,7 @@ use App\Http\Requests\ProductFormRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ProductGallery;
 
 class ProductController extends Controller
 {
@@ -61,6 +62,7 @@ class ProductController extends Controller
 
 
     public function saveAdd(ProductFormRequest $request){
+        
         $model = new Product(); 
 
         $model->fill($request->all());
@@ -70,6 +72,16 @@ class ProductController extends Controller
         }
 
         $model->save();
+        if($request->has('galleries')){
+            foreach($request->galleries as $i => $item){
+                $galleryObj = new ProductGallery();
+                $galleryObj->product_id = $model->id;
+                $galleryObj->order_no = $i+1;
+                $galleryObj->url = $item->storeAs('uploads/products/galleries/' . $model->id , 
+                                        uniqid() . '-' . $request->uploadfile->getClientOriginalName());
+                $galleryObj->save();
+            }
+        }
 
         return redirect(route('product.index'));
     }
