@@ -91,7 +91,10 @@ class ProductController extends Controller
         if(!$model){
             return redirect()->back();
         }
+
         $cates = Category::all();
+
+        $model->load('galleries');
         return view('admin.products.edit-form', compact('model', 'cates'));
     }
 
