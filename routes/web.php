@@ -36,13 +36,13 @@ Route::any('logout', function(){
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 Route::get('config/prepare-role-n-permission', function(){
-    Route::create(['name' => 'admin']);
+    Role::create(['name' => 'admin']);
     Role::create(['name' => 'editor']);
     Role::create(['name' => 'moderator']);
 
     Permission::create(['name' => 'add product']);
     Permission::create(['name' => 'remove product']);
-    
+
     $adminRole = Role::find(1);
     $editorRole = Role::find(2);
     $modRole = Role::find(3);
