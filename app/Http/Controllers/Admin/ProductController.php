@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductGallery;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
     public function index(Request $request){
+    
         $pagesize = 20;
         $searchData = $request->except('page');
         
@@ -52,6 +54,9 @@ class ProductController extends Controller
 
     public function remove($id){
         $model = Product::find($id);
+        // if (!Gate::allows('remove-product', $model)) {
+        //     abort(403);
+        // }
         $model->delete();
         return redirect()->back();;
     }

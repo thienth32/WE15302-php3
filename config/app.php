@@ -175,6 +175,13 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Add spatie permission lib
+         * @date: 2021-08-02
+         * ThienTH
+         */
+        Spatie\Permission\PermissionServiceProvider::class,
+
     ],
 
     /*
