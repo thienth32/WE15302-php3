@@ -9,11 +9,15 @@ use App\Models\Product;
 Route::post('upload-file/{dirname}', [UploadController::class, 'saveUpload'])->name('upload.savefile');
 Route::prefix('san-pham')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index');
-    Route::get('xoa/{id}', [ProductController::class, 'remove'])->name('product.remove');
-    Route::get('tao-moi', [ProductController::class, 'addForm'])->name('product.add');
-    Route::post('tao-moi', [ProductController::class, 'saveAdd']);
-    Route::get('cap-nhat/{id}', [ProductController::class, 'editForm'])->name('product.edit');
-    Route::post('cap-nhat/{id}', [ProductController::class, 'saveEdit']);
+    Route::get('xoa/{id}', [ProductController::class, 'remove'])->middleware('permission:remove product')->name('product.remove');
+    
+    Route::middleware('permission:add product')->group(function(){
+        Route::get('tao-moi', [ProductController::class, 'addForm'])->middleware('permission:add product')->name('product.add');
+        Route::post('tao-moi', [ProductController::class, 'saveAdd'])->middleware('permission:add product');
+        Route::get('cap-nhat/{id}', [ProductController::class, 'editForm'])->middleware('permission:add product')->name('product.edit');
+        Route::post('cap-nhat/{id}', [ProductController::class, 'saveEdit'])->middleware('permission:add product');
+    });
+    
 
     Route::get('demo', function(){
         // $products = DB::table('products')
